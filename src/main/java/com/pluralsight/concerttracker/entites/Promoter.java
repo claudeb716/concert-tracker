@@ -16,15 +16,15 @@ public class Promoter {
     //Constructors
     public Promoter() {
     }
-    public Promoter(String promoterName) {
-        this.promoterName = promoterName;
+    public Promoter(String name) {
+        this.promoterName = name;
     }
 //Getters and Setters
     public String getPromoterName() {
         return promoterName;
     }
-    public void setPromoterName(String promoterName) {
-        this.promoterName = promoterName;
+    public void setPromoterName(String name) {
+        this.promoterName = name;
     }
 
     public Long getId() {

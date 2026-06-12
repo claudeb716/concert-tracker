@@ -17,16 +17,16 @@ public class Artist {
     //Constructors
     public Artist() {
     }
-    public Artist(String artistName, String genre) {
-        this.artistName = artistName;
+    public Artist(String name, String genre) {
+        this.artistName = name;
         this.genre = genre;
     }
 //Getters and Setters
     public String getArtistName() {
         return artistName;
     }
-    public void setArtistName(String artistName) {
-        this.artistName = artistName;
+    public void setArtistName(String name) {
+        this.artistName = name;
     }
 
     public String getGenre() {

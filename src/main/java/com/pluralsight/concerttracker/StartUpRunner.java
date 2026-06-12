@@ -1,4 +1,14 @@
 package com.pluralsight.concerttracker;
 
-public class StartUpRunner {
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
+@Component
+public class StartUpRunner implements CommandLineRunner {
+
+
+    @Override
+    public void run(String... args) throws Exception {
+
+    }
 }

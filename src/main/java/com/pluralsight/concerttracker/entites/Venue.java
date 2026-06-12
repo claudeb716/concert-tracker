@@ -8,20 +8,20 @@ import jakarta.persistence.Id;
 @Entity
 public class Venue {
     //Fields
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id; //(Primary Key)
-
     private String venueName;
     private String venueCity;
     private  int venueCapacity;
+    //(Primary Key)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     // Constructors
     public Venue() {
     }
-    public Venue(String venueName, String venueCity, int venueCapacity) {
-        this.venueName = venueName;
-        this.venueCity = venueCity;
-        this.venueCapacity = venueCapacity;
+    public Venue(String name, String city, int capacity) {
+        this.venueName = name;
+        this.venueCity = city;
+        this.venueCapacity = capacity;
     }
 
     //Getters and Setters
@@ -52,4 +52,5 @@ public class Venue {
     public void setVenueCapacity(int venueCapacity) {
         this.venueCapacity = venueCapacity;
     }
+
 }

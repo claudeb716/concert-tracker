@@ -75,9 +75,9 @@ public class ConcertService {
             System.out.println(c.getConcertArtist().getArtistName() + "|" + c.getConcertVenue().getVenueName() + "(" + c.getTicketPrice() + ")" );
 
         }
-
     }
     public String getStatus(){
     return "Concerts are Loading...";
     }
+
 }

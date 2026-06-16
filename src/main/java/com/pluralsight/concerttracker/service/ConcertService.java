@@ -4,14 +4,12 @@ import com.pluralsight.concerttracker.data.ArtistRepository;
 import com.pluralsight.concerttracker.data.ConcertRepository;
 import com.pluralsight.concerttracker.data.PromoterRepository;
 import com.pluralsight.concerttracker.data.VenueRepository;
-import com.pluralsight.concerttracker.entites.Artist;
-import com.pluralsight.concerttracker.entites.Concert;
-import com.pluralsight.concerttracker.entites.Promoter;
-import com.pluralsight.concerttracker.entites.Venue;
+import com.pluralsight.concerttracker.models.Artist;
+import com.pluralsight.concerttracker.models.Concert;
+import com.pluralsight.concerttracker.models.Promoter;
+import com.pluralsight.concerttracker.models.Venue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ConcertService {

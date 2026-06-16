@@ -1,4 +1,4 @@
-package com.pluralsight.concerttracker.entites;
+package com.pluralsight.concerttracker.models;
 
 import jakarta.persistence.*;
 
@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 public class Concert {
     //Fields
     private int concerYear;
-    private int ticketSold;
+    private int ticketsSold;
     private double ticketPrice;
     //Primary Key
     @Id
@@ -24,25 +24,25 @@ public class Concert {
     }
     public Concert(int year,int sold, double price, Venue v, Artist a, Promoter p) {
         this.concerYear = year;
-        this.ticketSold = sold;
+        this.ticketsSold = sold;
         this.ticketPrice = price;
         this.concertVenue = v;
         this.concertArtist = a;
         this.concertPromoter = p;
     }
 //Getters and Setters
-    public int getConcerYear() {
+    public int getConcertYear() {
         return concerYear;
     }
     public void setConcerYear(int year) {
         this.concerYear = year;
     }
 
-    public int getTicketSold() {
-        return ticketSold;
+    public int getTicketsSold() {
+        return ticketsSold;
     }
-    public void setTicketSold(int sold) {
-        this.ticketSold = sold;
+    public void setTicketsSold(int sold) {
+        this.ticketsSold = sold;
     }
 
     public double getTicketPrice() {

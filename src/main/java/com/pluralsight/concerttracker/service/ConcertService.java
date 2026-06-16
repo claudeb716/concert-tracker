@@ -74,6 +74,25 @@ public class ConcertService {
 
         }
     }
+    //Manage Concerts
+    public Concert addConcert(int year,int sold, double price, Venue v, Artist a, Promoter p){
+    Venue venue = cr.findByConcertVenue_VenueName(v.getVenueName())
+    return cr.save(new Concert(year, sold, price, v, a, p));
+    }
+    public Concert byId(Long id){
+    return cr.findById(id).orElseThrow(() -> new NotFoundException(" No Concert Found with id" + id));
+    }
+    public Concert updatePrice(Long id, double price){
+    Concert concert = byId(id);
+    concert.setTicketPrice(price);
+    return  cr.save(concert);
+    }
+    public void deleteConcert(Long id){
+    if (!cr.existsById(id)){
+        throw new NotFoundException("No Concert with ID " + id);
+    }
+    cr.deleteById(id);
+    }
     public String getStatus(){
     return "Concerts are Loading...";
     }

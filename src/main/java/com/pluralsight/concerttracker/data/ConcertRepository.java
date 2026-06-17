@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface ConcertRepository extends JpaRepository<Concert, Long> {
     List<Concert> findByConcertVenue_VenueName(String name);
+    List<Concert> findByMinimumCapacity(int size);
     List<Concert> findByConcertArtist_ArtistName(String name);
     List<Concert> findByConcertPromoter_PromoterName(String name);
 

@@ -70,19 +70,19 @@ public class ConcertService {
     public void allConcerts(){
         System.out.println(" You have " + cr.count() + "Concerts");
         for (Concert c : cr.findAll()) {
-            System.out.println(c.getConcertArtist().getArtistName() + "|" + c.getConcertVenue().getVenueName() + "(" + c.getTicketPrice() + ")" );
+            System.out.println(c.getConcertArtist().getArtistName() + "|" + c.getConcertVenue().getVenueName() + "(" + c.getConcertPromoter() + ")" );
 
         }
     }
     //Manage Concerts
+    public Concert byId(Long id){
+        return cr.findById(id).orElseThrow(() -> new NotFoundException(" No Concert Found with id" + id));
+    }
     public Concert addConcert(int year,int sold, double price, Venue v, Artist a, Promoter p){
-    Venue venue = cr.findByConcertVenue_VenueName(v.getVenueName())
+    //Concert concert = new Concert(year, sold, price, v, a, p);
     return cr.save(new Concert(year, sold, price, v, a, p));
     }
-    public Concert byId(Long id){
-    return cr.findById(id).orElseThrow(() -> new NotFoundException(" No Concert Found with id" + id));
-    }
-    public Concert updatePrice(Long id, double price){
+    public Concert updateTicketPrice(Long id, double price){
     Concert concert = byId(id);
     concert.setTicketPrice(price);
     return  cr.save(concert);
@@ -93,6 +93,19 @@ public class ConcertService {
     }
     cr.deleteById(id);
     }
+    //Manage venues
+    public Venue addVenue(int year,int sold, double price, Venue venue,Artist artist, Promoter promoter){
+    Concert concert;
+
+    }
+    public Venue listVenues(){}
+    public Venue updateCapacity(){}
+    public void deleteVenue(){}
+    public Venue byVenueName(){}
+    public Venue byMinCapacity(){}
+
+    //Manage artists
+    //Manage promoters
     public String getStatus(){
     return "Concerts are Loading...";
     }

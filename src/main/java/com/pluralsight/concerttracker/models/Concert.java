@@ -13,11 +13,11 @@ public class Concert {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     //OneToOne Relationships
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Venue concertVenue;
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Artist concertArtist;
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Promoter concertPromoter;
     //Constructors
     public Concert() {

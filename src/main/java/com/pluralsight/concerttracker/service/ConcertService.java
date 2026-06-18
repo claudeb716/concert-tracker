@@ -107,9 +107,8 @@ public class ConcertService {
     public Venue addVenue(String name,String city,int capacity){
     return venueRepository.save(new Venue(name,city,capacity));
     }
-
-    public void listVenue(long id){
-    concertRepository.findByConcertVenue_VenueName();
+    public void listVenue(){
+    //concertRepository.findByConcertVenue_VenueName();
         System.out.println(" You have " + concertRepository.count() + "Concerts");
         for (Concert venue : concertRepository.findAll()) {
             System.out.println(venue.getId() + venue.getConcertVenue().getVenueName() + "|" + venue.getConcertYear() + "|" + venue.getConcertArtist());
@@ -123,7 +122,6 @@ public class ConcertService {
     public void deleteVenue(){}
     public Venue byVenueName(){}
     public Venue byMinCapacity(){}
-
     //Manage artists
     //Manage promoters
     public String getStatus(){

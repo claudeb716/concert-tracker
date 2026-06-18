@@ -11,24 +11,26 @@ import com.pluralsight.concerttracker.models.Venue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ConcertService {
     //communicate to the repos
-    private final ConcertRepository cr;
+    private final ConcertRepository concertRepository;
     private final PromoterRepository pr;
     private final ArtistRepository ar;
     private final VenueRepository vr;
     //Constructor Injection
 @Autowired
     public ConcertService(ConcertRepository cr, PromoterRepository pr, ArtistRepository ar, VenueRepository vr) {
-        this.cr = cr;
+        this.concertRepository = cr;
         this.pr = pr;
         this.ar = ar;
         this.vr = vr;
     }
     //Seed Data
     public void seedIfEmpty(){
-    if (cr.count() > 0){
+    if (concertRepository.count() > 0){
         return;
     }   //Venues
         Venue citizensBankPark = vr.save(new Venue("Citizens Bank Park", "Philadelphia", 42901));
@@ -55,51 +57,66 @@ public class ConcertService {
         Artist iceSpice = ar.save(new Artist("Ice Spice", "Rap"));
         Artist tameImpala = ar.save(new Artist("Tame Impala", "Indie-Rock"));
         //Concerts
-        cr.save(new Concert(2023,10000,200.00,lincolnFinancialField,taylorSwift,ticketMaster));
-        cr.save(new Concert(2022,13000,130.00,citizensBankPark,summerWalker,liveNation));
-        cr.save(new Concert(2017,8900,87.00,dellMusicCenter,theWeekend,tickPick));
-        cr.save(new Concert(2009,7300,100.00,franklinMusicHall,sza,aegPresents));
-        cr.save(new Concert(2023,5000,135.00,ardmoreMusicHall,travisScott,imp));
-        cr.save(new Concert(2025,6000,130.00,grandOperaHouse,iceSpice,boweryPresents));
-        cr.save(new Concert(2025,1600,255.00,whiteEagleHall,tameImpala,seatGeek));
+        concertRepository.save(new Concert(2023,10000,200.00,lincolnFinancialField,taylorSwift,ticketMaster));
+        concertRepository.save(new Concert(2022,13000,130.00,citizensBankPark,summerWalker,liveNation));
+        concertRepository.save(new Concert(2017,8900,87.00,dellMusicCenter,theWeekend,tickPick));
+        concertRepository.save(new Concert(2009,7300,100.00,franklinMusicHall,sza,aegPresents));
+        concertRepository.save(new Concert(2023,5000,135.00,ardmoreMusicHall,travisScott,imp));
+        concertRepository.save(new Concert(2025,6000,130.00,grandOperaHouse,iceSpice,boweryPresents));
+        concertRepository.save(new Concert(2025,1600,255.00,whiteEagleHall,tameImpala,seatGeek));
 
 
 
     }
     //List ALL Concerts (Artist and Venue)
-    public void allConcerts(){
-        System.out.println(" You have " + cr.count() + "Concerts");
-        for (Concert c : cr.findAll()) {
+    public void listAllConcerts(){
+        System.out.println(" You have " + concertRepository.count() + "Concerts");
+        for (Concert c : concertRepository.findAll()) {
             System.out.println(c.getConcertArtist().getArtistName() + "|" + c.getConcertVenue().getVenueName() + "(" + c.getConcertPromoter() + ")" );
 
         }
     }
     //Manage Concerts
-    public Concert byId(Long id){
-        return cr.findById(id).orElseThrow(() -> new NotFoundException(" No Concert Found with id" + id));
+    public Concert findConcertById(long concertId){
+
+        return concertRepository.findById(concertId).orElseThrow(() -> new NotFoundException(" No Concert Found with id" + concertId));
     }
-    public Concert addConcert(int year,int sold, double price, Venue v, Artist a, Promoter p){
+    public void addConcert(int year, int sold, double price, Venue v, Artist a, Promoter p){
     //Concert concert = new Concert(year, sold, price, v, a, p);
-    return cr.save(new Concert(year, sold, price, v, a, p));
+        concertRepository.save(new Concert(year, sold, price, v, a, p));
     }
-    public Concert updateTicketPrice(Long id, double price){
-    Concert concert = byId(id);
+    public void updateTicketPrice(Long id, double price){
+    Concert concert = findConcertById(id);
     concert.setTicketPrice(price);
-    return  cr.save(concert);
+        concertRepository.save(concert);
+        System.out.println("updated");
+    }
+    public void updateTicketSold(long id, int sold){
+        Concert update = findConcertById(id);
+        update.setTicketsSold(sold);
+        concertRepository.save(update);
+        System.out.println("updated");
     }
     public void deleteConcert(Long id){
-    if (!cr.existsById(id)){
+    if (!concertRepository.existsById(id)){
         throw new NotFoundException("No Concert with ID " + id);
     }
-    cr.deleteById(id);
+    concertRepository.deleteById(id);
     }
+
     //Manage venues
-    public Venue addVenue(int year,int sold, double price, Venue venue,Artist artist, Promoter promoter){
-    Concert concert;
+    public Venue addVenue(String name,String city,int capacity){
+    return vr.save(new Venue(name,city,capacity));
+    }
+
+    public List<Concert> listVenue(String name){
+    return concertRepository.findByConcertVenue_VenueName(name);
+    }
+    public List<Concert> updateCapacity(String name){
+    return concertRepository.findByConcertVenue_VenueName(name);
 
     }
-    public Venue listVenues(){}
-    public Venue updateCapacity(){}
+
     public void deleteVenue(){}
     public Venue byVenueName(){}
     public Venue byMinCapacity(){}

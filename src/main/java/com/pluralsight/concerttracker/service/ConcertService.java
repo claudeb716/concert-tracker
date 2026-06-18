@@ -19,27 +19,27 @@ public class ConcertService {
     private final ConcertRepository concertRepository;
     private final PromoterRepository pr;
     private final ArtistRepository ar;
-    private final VenueRepository vr;
+    private final VenueRepository venueRepository;
     //Constructor Injection
 @Autowired
     public ConcertService(ConcertRepository cr, PromoterRepository pr, ArtistRepository ar, VenueRepository vr) {
         this.concertRepository = cr;
         this.pr = pr;
         this.ar = ar;
-        this.vr = vr;
+        this.venueRepository = vr;
     }
     //Seed Data
     public void seedIfEmpty(){
     if (concertRepository.count() > 0){
         return;
     }   //Venues
-        Venue citizensBankPark = vr.save(new Venue("Citizens Bank Park", "Philadelphia", 42901));
-        Venue lincolnFinancialField = vr.save(new Venue("Lincoln Financial Field", "Philadelphia", 67594));
-        Venue dellMusicCenter = vr.save(new Venue("Dell Music Center", "Philadelphia", 6002));
-        Venue franklinMusicHall = vr.save(new Venue("Franklin Music Hall", "Philadelphia", 2500));
-        Venue ardmoreMusicHall = vr.save(new Venue("Ardmore Music Hall", "Ardmore", 600));
-        Venue grandOperaHouse = vr.save(new Venue("Grand Opera House", "Wilmington", 1140));
-        Venue whiteEagleHall = vr.save(new Venue("White Eagle Hall", "Jersey City", 800));
+        Venue citizensBankPark = venueRepository.save(new Venue("Citizens Bank Park", "Philadelphia", 42901));
+        Venue lincolnFinancialField = venueRepository.save(new Venue("Lincoln Financial Field", "Philadelphia", 67594));
+        Venue dellMusicCenter = venueRepository.save(new Venue("Dell Music Center", "Philadelphia", 6002));
+        Venue franklinMusicHall = venueRepository.save(new Venue("Franklin Music Hall", "Philadelphia", 2500));
+        Venue ardmoreMusicHall = venueRepository.save(new Venue("Ardmore Music Hall", "Ardmore", 600));
+        Venue grandOperaHouse = venueRepository.save(new Venue("Grand Opera House", "Wilmington", 1140));
+        Venue whiteEagleHall = venueRepository.save(new Venue("White Eagle Hall", "Jersey City", 800));
         //Promoters
         Promoter liveNation = pr.save(new Promoter("Live Nation"));
         Promoter ticketMaster = pr.save(new Promoter("Ticket Master"));
@@ -105,18 +105,19 @@ public class ConcertService {
     }
     //Manage venues
     public Venue addVenue(String name,String city,int capacity){
-    return vr.save(new Venue(name,city,capacity));
+    return venueRepository.save(new Venue(name,city,capacity));
     }
 
-    public void listVenue(String name){
+    public void listVenue(long id){
+    concertRepository.findByConcertVenue_VenueName();
         System.out.println(" You have " + concertRepository.count() + "Concerts");
-        for (Concert c : concertRepository.findAll()) {
-            System.out.println(c.getConcertArtist().getArtistName() + "|" + c.getConcertVenue().getVenueName() + "(" + c.getConcertPromoter() + ")" );
+        for (Concert venue : concertRepository.findAll()) {
+            System.out.println(venue.getId() + venue.getConcertVenue().getVenueName() + "|" + venue.getConcertYear() + "|" + venue.getConcertArtist());
 
         }
     }
     public List<Concert> updateCapacity(String name){
-    return concertRepository.findBy_VenueName(name);
+    return concertRepository.findByConcertVenue_VenueName(name);
 
     }
     public void deleteVenue(){}

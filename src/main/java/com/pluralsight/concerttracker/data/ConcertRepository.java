@@ -9,14 +9,14 @@ import java.util.List;
 
 public interface ConcertRepository extends JpaRepository<Concert, Long> {
     //Manage venues
-    List<Concert> findBy_VenueName(String name);
-    List<Concert> findBy_VenueCity(String city);
-    List<Concert> findByMinimumCapacity(int size);
+    List<Concert> findByConcertVenue_VenueName(String name);
+    List<Concert> findByConcertVenue_VenueCity(String city);
+    List<Concert> findByConcertVenue_MinimumCapacity(int size);
     //manage artist
-    List<Concert> findBy_Genre(String genre);
-    List<Concert> findBy_ArtistName(String name);
+    List<Concert> findByConcertArtist_Genre(String genre);
+    List<Concert> findByConcertArtist_ArtistName(String name);
     //manage promoter
-    List<Concert> findBy_PromoterName(String name);
+    List<Concert> findByConcertPromoter_PromoterName(String name);
     //manage concert
     List<Concert>findByTicketsSold(int text);
     List<Concert> findByTicketPrice(double price);

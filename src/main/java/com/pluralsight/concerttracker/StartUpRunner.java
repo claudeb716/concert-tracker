@@ -1,7 +1,6 @@
 package com.pluralsight.concerttracker;
 
 import com.pluralsight.concerttracker.models.Artist;
-import com.pluralsight.concerttracker.models.Concert;
 import com.pluralsight.concerttracker.models.Promoter;
 import com.pluralsight.concerttracker.models.Venue;
 import com.pluralsight.concerttracker.service.ConcertService;
@@ -34,10 +33,10 @@ public class StartUpRunner implements CommandLineRunner {
                 switch(userScanner.nextInt()){
                     case 1 -> concertScreen(userScanner);
                     case 2 -> searchConcertScreen(userScanner);
-                    case 3 -> artistScreen();
-                    case 4 -> venueScreen();
-                    case 5 -> promoterScreen();
-                    case 6 -> reportScreen();
+                    case 3 -> artistScreen(userScanner);
+                    case 4 -> venueScreen(userScanner);
+                    case 5 -> promoterScreen(userScanner);
+                    case 6 -> reportScreen(userScanner);
                     case 0 -> running = false;
                     default -> System.out.println("Unknown option");
                 }
@@ -82,28 +81,28 @@ public class StartUpRunner implements CommandLineRunner {
                 case 2 -> {
                     System.out.println("Enter Concert ID to view");
                     long inputId = scanner.nextLong();
-                    cs.findConcertById(inputId);
+                    cs.byId(inputId);
                 }
-                    case 3 -> {
-                        System.out.println("Enter year");
+                 case 3 -> {
+                        System.out.println("Enter year: ");
                         int year = scanner.nextInt();
-                        System.out.println("Enter how many tickets");
+                        System.out.println("Enter how many tickets: ");
                         scanner.nextLine();
                         int ticketSold = scanner.nextInt();
-                        System.out.println("Enter ticket price");
+                        System.out.println("Enter ticket price: ");
                         double ticketPrice = scanner.nextDouble();
-                        System.out.println("Enter Venue Name");
+                        System.out.println("Enter Venue Name: ");
                         String venueName = scanner.nextLine();
-                        System.out.println("Enter Venue city");
+                        System.out.println("Enter Venue city: ");
                         String city = scanner.nextLine();
-                        System.out.println("Enter Capacity");
+                        System.out.println("Enter Capacity: ");
                         int capacity = scanner.nextInt();
-                        System.out.println("Enter Artist");
+                        System.out.println("Enter Artist: ");
                         scanner.nextLine();
-                        String artistName =scanner.nextLine();
-                        System.out.println("Enter Genre");
+                        String artistName = scanner.nextLine();
+                        System.out.println("Enter Genre: ");
                         String genre = scanner.nextLine();
-                        System.out.println("Enter Promoter");
+                        System.out.println("Enter Promoter: ");
                         String promoterName = scanner.nextLine();
                         cs.addConcert(year,ticketSold,ticketPrice,new Venue(venueName,city,capacity),new Artist(artistName,genre),new Promoter(promoterName));
                         System.out.println("Added!");
@@ -128,7 +127,7 @@ public class StartUpRunner implements CommandLineRunner {
 
                 }
                 case 6 -> {
-                    System.out.print("Game id: ");
+                    System.out.print("Concert id: ");
                     long id = scanner.nextLong();
                     cs.deleteConcert(id);
                 }
@@ -138,9 +137,92 @@ public class StartUpRunner implements CommandLineRunner {
             }
         }
     }
-    private void searchConcertScreen(Scanner scanner){}
-    private void artistScreen(Scanner scanner){}
-    private void venueScreen(Scanner scanner){}
-    private void promoterScreen(Scanner scanner){}
-    private void reportScreen(Scanner scanner){}
+    private void searchConcertScreen(Scanner scanner){
+        boolean screenRunning = false;
+        while (!screenRunning){
+            System.out.println("""
+                        === Custom Search Screen===
+                        1) By Year
+                        2) By Artist
+                        3) By Venue
+                        4) By City
+                        5) By Maximum Price
+                        6) By Price Range
+                        7) Advanced(MaxPrice & Year)
+                        0) Back <-
+                        ===========================
+                """);
+            int userChoice = scanner.nextInt();
+            switch (userChoice){}
+        }
+    }
+    private void artistScreen(Scanner scanner){
+        boolean screenRunning = false;
+        while (!screenRunning){
+            System.out.println("""
+                        === Artists Screen ===
+                        1) List All Artists
+                        2) BY Genre
+                        3) By Name
+                        4) Update Genre
+                        5) Add Artist
+                        6) Delete Artist
+                        0) Back <-
+                        =====================
+                """);
+            int userChoice = scanner.nextInt();
+            switch (userChoice){}
+        }
+    }
+    private void venueScreen(Scanner scanner){
+        boolean screenRunning = false;
+        while (!screenRunning){
+            System.out.println("""
+                        === Venues Screen ===
+                        1) List All Venues
+                        2) By City
+                        3) BY Name
+                        4) By Minimum Capacity
+                        5) Update Capacity
+                        6) Add Venue
+                        7) Delete Venue
+                        0) Back <-
+                        =====================
+                """);
+            int userChoice = scanner.nextInt();
+            switch (userChoice){}
+        }
+    }
+    private void promoterScreen(Scanner scanner){
+        boolean screenRunning = false;
+        while (!screenRunning){
+            System.out.println("""
+                        === Promoters Screen ===
+                        1) List All Promoters
+                        2) By Name
+                        3) Add Promoter
+                        6) Delete Promoter
+                        0) Back <-
+                        =====================
+                """);
+            int userChoice = scanner.nextInt();
+            switch (userChoice){}
+        }
+    }
+    private void reportScreen(Scanner scanner){
+        boolean screenRunning = false;
+        while (!screenRunning){
+            System.out.println("""
+                        === Reports Screen ===
+                        1) Revenue per Venue
+                        2) Busiest Venue + Artist
+                        3) Average Ticket Price
+                        4) Capacity Report
+                        0) Back <-
+                        =====================
+                """);
+            int userChoice = scanner.nextInt();
+            switch (userChoice){}
+        }
+    }
 }

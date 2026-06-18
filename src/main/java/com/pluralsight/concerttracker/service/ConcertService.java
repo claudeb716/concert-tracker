@@ -77,22 +77,22 @@ public class ConcertService {
         }
     }
     //Manage Concerts
-    public Concert findConcertById(long concertId){
+    public Concert byId(long concertId){
 
         return concertRepository.findById(concertId).orElseThrow(() -> new NotFoundException(" No Concert Found with id" + concertId));
     }
     public void addConcert(int year, int sold, double price, Venue v, Artist a, Promoter p){
-    //Concert concert = new Concert(year, sold, price, v, a, p);
+
         concertRepository.save(new Concert(year, sold, price, v, a, p));
     }
     public void updateTicketPrice(Long id, double price){
-    Concert concert = findConcertById(id);
+    Concert concert = byId(id);
     concert.setTicketPrice(price);
         concertRepository.save(concert);
         System.out.println("updated");
     }
     public void updateTicketSold(long id, int sold){
-        Concert update = findConcertById(id);
+        Concert update = byId(id);
         update.setTicketsSold(sold);
         concertRepository.save(update);
         System.out.println("updated");
@@ -103,20 +103,22 @@ public class ConcertService {
     }
     concertRepository.deleteById(id);
     }
-
     //Manage venues
     public Venue addVenue(String name,String city,int capacity){
     return vr.save(new Venue(name,city,capacity));
     }
 
-    public List<Concert> listVenue(String name){
-    return concertRepository.findByConcertVenue_VenueName(name);
+    public void listVenue(String name){
+        System.out.println(" You have " + concertRepository.count() + "Concerts");
+        for (Concert c : concertRepository.findAll()) {
+            System.out.println(c.getConcertArtist().getArtistName() + "|" + c.getConcertVenue().getVenueName() + "(" + c.getConcertPromoter() + ")" );
+
+        }
     }
     public List<Concert> updateCapacity(String name){
-    return concertRepository.findByConcertVenue_VenueName(name);
+    return concertRepository.findBy_VenueName(name);
 
     }
-
     public void deleteVenue(){}
     public Venue byVenueName(){}
     public Venue byMinCapacity(){}
